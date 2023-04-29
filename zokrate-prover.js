@@ -49,7 +49,7 @@ const generateInput = async (pk) => {
     const res = {
         privateKey: Number(privateKey),
         primeDivider: Number(primeDivider),
-        modulus: Number(privateKey) % Number(primeDivider)
+        modulus: ((Number(privateKey) % Number(primeDivider)) + Number(primeDivider)) % Number(primeDivider)
     }
 
     return res;
