@@ -1,6 +1,7 @@
 import { generateProof } from "./zokrate-prover.js";
 import { verifyProof } from "./zokrate-verifier.js";
 
+
 const run = async () => {
 
     const {proof, keypair} = await generateProof();

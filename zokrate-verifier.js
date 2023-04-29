@@ -1,4 +1,5 @@
 import { initialize } from "zokrates-js";
+
 const verifyProof = async (keypair, proof) => {
     try {
         const zokratesProvider = await initialize();

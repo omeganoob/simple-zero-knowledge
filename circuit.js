@@ -8,11 +8,11 @@
 // }`;
 
 const circuit = `
-def main(private field privateKey, private field publicKey, private field ehrAddress)
+import "hashes/sha256/512bitPacked" as sha256packed;
+import "utils/casts/field_to_u64" as field_to_u64;
+def main(private field privateKey, private field primeDivider, private field modulus) -> bool
 {
-    assert(privateKey*publicKey == ehrAddress);
-    return;
-}
-`;
+    return field_to_u64(modulus) == field_to_u64(privateKey) % field_to_u64(primeDivider);
+}`;
 
 export default circuit;
