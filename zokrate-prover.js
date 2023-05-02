@@ -9,6 +9,8 @@ const pk = `MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgyTIfCYR723IrbQbkfoZ2
 // {private} save for later calculation
 const randomPrime = 9301885781432487061;
 
+const reducer = Number(1e9+7);
+
 const generateProof = async () => {
     try {
 
@@ -26,14 +28,15 @@ const generateProof = async () => {
 
         console.log(res)
 
+        console.log(`Reduced: ${res.privateKey % reducer}`, `${res.primeDivider % reducer}`, `${res.modulus % reducer}`);
+
         try {
-            const { witness, output} = await zokratesProvider.computeWitness(artifacts, [`${res.privateKey}`, `${res.primeDivider}`, `${res.modulus}`]);
+            const { witness, output} = await zokratesProvider.computeWitness(artifacts, [`${res.privateKey % reducer}`, `${res.primeDivider % reducer}`, `${res.modulus % reducer}`]);
             console.log("output: " + output);
             proof = await zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
         } catch(err) {
             return {proof, keypair};
         }
-
         return {proof, keypair};
     } catch (err) {
         console.error(err);

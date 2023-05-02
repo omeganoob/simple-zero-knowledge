@@ -12,7 +12,10 @@ import "hashes/sha256/512bitPacked" as sha256packed;
 import "utils/casts/field_to_u64" as field_to_u64;
 def main(private field privateKey, private field primeDivider, private field modulus) -> bool
 {
-    return field_to_u64(modulus) == field_to_u64(privateKey) % field_to_u64(primeDivider);
+    u64 pk = field_to_u64(privateKey);
+    u64 dv = field_to_u64(primeDivider);
+    u64 mod = field_to_u64(modulus);
+    return mod == (((pk % dv) + dv) % dv);
 }`;
 
 export default circuit;
